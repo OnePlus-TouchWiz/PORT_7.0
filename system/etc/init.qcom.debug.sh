@@ -218,48 +218,64 @@ enable_msm8996_dcc_config()
     echo sram > $DCC_PATH/data_sink
     echo  1 > $DCC_PATH/config_reset
 
-    #SPM Registers
-    # CPU0
-    echo  0x998000C > $DCC_PATH/config
-    echo  0x9980030 > $DCC_PATH/config
-    echo  0x998003C > $DCC_PATH/config
-    # CPU1
-    echo  0x999000C > $DCC_PATH/config
-    echo  0x9990030 > $DCC_PATH/config
-    echo  0x999003C > $DCC_PATH/config
-    # CPU2
-    echo  0x99B000C > $DCC_PATH/config
-    echo  0x99B0030 > $DCC_PATH/config
-    echo  0x99B003C > $DCC_PATH/config
-    # CPU3
-    echo  0x99C000C > $DCC_PATH/config
-    echo  0x99C0030 > $DCC_PATH/config
-    echo  0x99C003C > $DCC_PATH/config
-    # PWRL2
-    echo  0x99A000C > $DCC_PATH/config
-    echo  0x99A0030 > $DCC_PATH/config
-    echo  0x99A003C > $DCC_PATH/config
-    # PERFL2
-    echo  0x99D000C > $DCC_PATH/config
-    echo  0x99D0030 > $DCC_PATH/config
-    echo  0x99D003C > $DCC_PATH/config
-    # L3
-    echo  0x9A0000C > $DCC_PATH/config
-    echo  0x9A00030 > $DCC_PATH/config
-    echo  0x9A0003C > $DCC_PATH/config
-    # CBF
-    echo  0x9A1000C > $DCC_PATH/config
-    echo  0x9A10030 > $DCC_PATH/config
-    echo  0x9A1003C > $DCC_PATH/config
-    # PWR L2 HW-FLUSH
-    echo  0x99A1060 > $DCC_PATH/config
-    # PERF L2 HW-FLUSH
-    echo  0x99D1060 > $DCC_PATH/config
-    # APCS_APC0_SLEEP_EN_VOTE
-    echo  0x99A2030 > $DCC_PATH/config
-    # APCS_APCC_SW_EN_VOTE
-    echo  0x99E0020 > $DCC_PATH/config
-    # pIMEM
+	#SPM Registers
+	# CPU0
+	echo 0x9980000 7 > $DCC_PATH/config
+	echo 0x9980030 4 > $DCC_PATH/config
+	# APCS_APC0_CPU0_HMSS_PM_APCC_CPU
+	echo 0x9981000 27 > $DCC_PATH/config
+	# CPU1
+	echo 0x9990000 7 > $DCC_PATH/config
+	echo 0x9990030 4 > $DCC_PATH/config
+	# APCS_APC0_CPU1_HMSS_PM_APCC_CPU
+	echo 0x9991000 27 > $DCC_PATH/config
+	# PWR L2
+	echo 0x99A0000 7 > $DCC_PATH/config
+	echo 0x99A0030 4 > $DCC_PATH/config
+	# APCS_APC0_L2_HMSS_PM_APCC_L2
+	echo 0x99A1000 27 > $DCC_PATH/config
+	# APCS_APC0_HMSS_PM_APCC_APC
+	echo 0x99A2000 33 > $DCC_PATH/config
+	# CPU2
+	echo 0x99B0000 7 > $DCC_PATH/config
+	echo 0x99B0030 4 > $DCC_PATH/config
+	# APCS_APC1_CPU0_HMSS_PM_APCC_CPU
+	echo 0x99B1000 27 > $DCC_PATH/config
+	# CPU3
+	echo 0x99C000C > $DCC_PATH/config
+	echo 0x99C0030 > $DCC_PATH/config
+	echo 0x99C003C > $DCC_PATH/config
+	# PWRL2
+	echo 0x99A000C > $DCC_PATH/config
+	echo 0x99A0030 > $DCC_PATH/config
+	echo 0x99A003C > $DCC_PATH/config
+	# PERFL2
+	echo 0x99D000C > $DCC_PATH/config
+	echo 0x99D0030 > $DCC_PATH/config
+	echo 0x99D003C > $DCC_PATH/config
+	echo 0x99C0000 7 > $DCC_PATH/config
+	echo 0x99C0030 4 > $DCC_PATH/config
+	# APCS_APC1_CPU1_HMSS_PM_APCC_CPU
+	echo 0x99C1000 27 > $DCC_PATH/config
+	# PERF L2
+	echo 0x99D0000 7 > $DCC_PATH/config
+	echo 0x99D0030 4 > $DCC_PATH/config
+	# APCS_APC1_L2_HMSS_PM_APCC_L2
+	echo 0x99D1000 27 > $DCC_PATH/config
+	# APCS_APC1_HMSS_PM_APCC_APC
+	echo 0x99D2000 33 > $DCC_PATH/config
+	# L3
+	echo 0x9A00000 7 > $DCC_PATH/config
+	echo 0x9A00030 4 > $DCC_PATH/config
+	# CBF
+	echo 0x9A10000 7 > $DCC_PATH/config
+	echo 0x9A10030 4 > $DCC_PATH/config
+	# APCS_APCC_HMSS_PM_APCC_GLB
+	echo 0x99E0000 59 > $DCC_PATH/config
+	# HMSS CSR
+	echo 0x9820000 43 > $DCC_PATH/config
+
+	# pIMEM
     echo  0x0038070 > $DCC_PATH/config
     echo  0x0038074 > $DCC_PATH/config
     echo  0x0038078 > $DCC_PATH/config

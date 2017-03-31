@@ -1992,11 +1992,6 @@ android.util.Log
 android.util.Log$1
 android.util.Log$ImmediateLogWriter
 android.util.Log$TerribleFailureHandler
-android.util.secutil.Log
-android.util.secutil.Log$1
-android.util.secutil.Log$ImmediateLogWriter
-android.util.secutil.Log$TerribleFailureHandler
-android.util.secutil.LogSwitcher
 android.util.LogPrinter
 android.util.LongSparseArray
 android.util.LongSparseLongArray

@@ -1,18 +1,7 @@
-on post-fs-data
-    # SA, System SW, SAMSUNG 
-    # create log directory
-    mkdir /data/log 0775 system log
-    chown system log /data/log
-    mkdir /data/anr 0775 system system
-    chown system system /data/anr
-    chmod 0775 /data/log
-    chmod 0775 /data/anr
-
 on boot
     # Allow bugreports access to eMMC 5.0 stats
     chown root mount /sys/kernel/debug/mmc0/mmc0:0001/ext_csd
     chmod 0440 /sys/kernel/debug/mmc0/mmc0:0001/ext_csd
-	
 
 service dumpstate /system/bin/dumpstate -s
     class main
@@ -49,35 +38,3 @@ service bugreportremote /system/bin/dumpstate -d -q -B -R -z \
     class main
     disabled
     oneshot
-
-# SA Internally bug reports.	
-service bugreportapp /system/bin/dumpstate -a -d -z \
-		-o /data/log/dumpstate_app_error
-	class main
-	disabled
-	oneshot
-
-service bugreportnat /system/bin/dumpstate -a -d -z \
-		-o /data/log/dumpstate_app_native
-	class main
-	disabled
-	oneshot
-
-service bugreportsys /system/bin/dumpstate -a -d -z \
-		-o /data/log/dumpstate_sys_error
-	class main
-	disabled
-	oneshot
-
-service bugreportanr /system/bin/dumpstate -a -d -z \
-		-o /data/log/dumpstate_app_anr
-	class main
-	disabled
-	oneshot
-
-service bugreportswd /system/bin/dumpstate -a -d -z \
-                -o /data/log/dumpstate_sys_watchdog
-        class main
-        disabled
-        oneshot
-

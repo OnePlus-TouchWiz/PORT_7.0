@@ -113,6 +113,8 @@ Only the three quirks included above are recognized at this point:
 -->
 
 <MediaCodecs>
+    <Include href="media_codecs_google_audio.xml" />
+    <Include href="media_codecs_google_telephony.xml" />
     <Settings>
         <Setting name="max-video-encoder-input-buffers" value="11" />
     </Settings>
@@ -124,7 +126,6 @@ Only the three quirks included above are recognized at this point:
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="requires-loaded-to-idle-after-allocation" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="96x64" max="4096x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -152,7 +153,6 @@ Only the three quirks included above are recognized at this point:
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="requires-loaded-to-idle-after-allocation"/>
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="96x64" max="1920x1088" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -165,7 +165,6 @@ Only the three quirks included above are recognized at this point:
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="requires-loaded-to-idle-after-allocation" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="96x64" max="864x480" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -178,7 +177,6 @@ Only the three quirks included above are recognized at this point:
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="requires-loaded-to-idle-after-allocation" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="96x64" max="3840x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -192,7 +190,6 @@ Only the three quirks included above are recognized at this point:
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="requires-loaded-to-idle-after-allocation" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="162x64" max="4096x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -208,7 +205,6 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.qcom.video.decoder.avc" type="video/avc" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="64x64" max="4096x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -226,7 +222,6 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.qcom.video.decoder.avc.secure" type="video/avc" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="64x64" max="4096x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -240,7 +235,6 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.qcom.video.decoder.mpeg4" type="video/mp4v-es" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports"/>
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="64x64" max="1920x1088" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -250,8 +244,6 @@ Only the three quirks included above are recognized at this point:
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="16" />
         </MediaCodec>
-<!-- QCom MPEG2 Components are not used -->
-<!--
         <MediaCodec name="OMX.qcom.video.decoder.mpeg2" type="video/mpeg2" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
@@ -277,11 +269,9 @@ Only the three quirks included above are recognized at this point:
             <Feature name="secure-playback" required="true" />
             <Limit name="concurrent-instances" max="6" />
         </MediaCodec>
--->
         <MediaCodec name="OMX.qcom.video.decoder.h263" type="video/3gpp" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="64x64" max="864x480" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -291,12 +281,9 @@ Only the three quirks included above are recognized at this point:
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="16" />
         </MediaCodec>
-        <MediaCodec name="OMX.qcom.video.decoder.vc1" >
-            <Type name="video/x-ms-wmv"/>
-            <Type name="video/wvc1"/>
+        <MediaCodec name="OMX.qcom.video.decoder.vc1" type="video/x-ms-wmv" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="64x64" max="1920x1088" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -306,11 +293,7 @@ Only the three quirks included above are recognized at this point:
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="16" />
         </MediaCodec>
-<!-- QCom VC1 secure Components are not used -->
-<!--
-        <MediaCodec name="OMX.qcom.video.decoder.vc1.secure">
-            <Type name="video/x-ms-wmv"/>
-            <Type name="video/wvc1"/>
+        <MediaCodec name="OMX.qcom.video.decoder.vc1.secure" type="video/x-ms-wmv" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Limit name="size" min="64x64" max="1920x1088" />
@@ -323,9 +306,6 @@ Only the three quirks included above are recognized at this point:
             <Feature name="secure-playback" required="true" />
             <Limit name="concurrent-instances" max="6" />
         </MediaCodec>
--->
-<!-- QCom DivX Components are not used -->
-<!--
         <MediaCodec name="OMX.qcom.video.decoder.divx" type="video/divx" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
@@ -362,11 +342,9 @@ Only the three quirks included above are recognized at this point:
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="16" />
         </MediaCodec>
--->
         <MediaCodec name="OMX.qcom.video.decoder.vp8" type="video/x-vnd.on2.vp8" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
-            <Quirk name="video-controller-check-enable" />	    
             <Limit name="size" min="64x64" max="3840x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -379,7 +357,6 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.qcom.video.decoder.vp9" type="video/x-vnd.on2.vp9" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="64x64" max="3840x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -392,7 +369,6 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.qcom.video.decoder.vp9.secure" type="video/x-vnd.on2.vp9" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="64x64" max="3840x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -406,7 +382,6 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.qcom.video.decoder.hevc" type="video/hevc" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="64x64" max="4096x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -419,7 +394,6 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.qcom.video.decoder.hevc.secure" type="video/hevc" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
-            <Quirk name="video-controller-check-enable" />
             <Limit name="size" min="64x64" max="4096x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -430,49 +404,8 @@ Only the three quirks included above are recognized at this point:
             <Feature name="secure-playback" required="true" />
             <Limit name="concurrent-instances" max="6" />
         </MediaCodec>
-        <!-- Video Software  -->
-        <MediaCodec name="OMX.SEC.h263.sw.dec" type="video/3gpp" >
-            <Quirk name="decoder-ignores-streamcorrupt-error" />
-        </MediaCodec>
-        <MediaCodec name="OMX.SEC.avc.sw.dec" type="video/avc" >
-            <Quirk name="decoder-ignores-streamcorrupt-error" />
-            <Limit name="size" min="64x64" max="2048x2048" />
-            <Feature name="adaptive-playback" />
-        </MediaCodec>
-        <MediaCodec name="OMX.SEC.mpeg4.sw.dec" type="video/mp4v-es" >
-            <Quirk name="decoder-ignores-streamcorrupt-error" />
-        </MediaCodec>
-        <MediaCodec name="OMX.SEC.vc1.sw.dec" >
-            <Type name="video/wvc1" />
-            <Type name="video/x-ms-wmv" />
-            <Quirk name="decoder-ignores-streamcorrupt-error" />
-        </MediaCodec>
-        <MediaCodec name="OMX.SEC.wmv7.dec" type="video/x-ms-wmv7" >
-            <Quirk name="decoder-ignores-streamcorrupt-error" />
-        </MediaCodec>
-        <MediaCodec name="OMX.SEC.wmv8.dec" type="video/x-ms-wmv8" >
-            <Quirk name="decoder-ignores-streamcorrupt-error" />
-        </MediaCodec>
-        <MediaCodec name="OMX.SEC.mp43.dec" type="video/mp43" >
-            <Quirk name="decoder-ignores-streamcorrupt-error" />
-        </MediaCodec>	
-        <MediaCodec name="OMX.SEC.vp8.dec" type="video/x-vnd.on2.vp8" >
-            <Quirk name="decoder-ignores-streamcorrupt-error" />
-            <Limit name="size" min="64x64" max="2048x2048" />
-            <Feature name="adaptive-playback" />
-        </MediaCodec>
         <!-- Audio Software  -->
         <MediaCodec name="OMX.qti.audio.decoder.flac" type="audio/flac" />
     </Decoders>
     <Include href="media_codecs_google_video.xml" />
-    <!-- sec sw hevc move behind google sw hevc   -->
-    <Decoders>
-        <MediaCodec name="OMX.SEC.hevc.sw.dec" type="video/hevc" >
-            <Quirk name="decoder-ignores-streamcorrupt-error" />
-            <Limit name="size" min="64x64" max="2048x2048" />
-            <Feature name="adaptive-playback" />
-        </MediaCodec>
-    </Decoders>
-    <Include href="media_codecs_google_audio.xml" />
-    <Include href="media_codecs_google_telephony.xml" />
 </MediaCodecs>

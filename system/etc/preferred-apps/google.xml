@@ -98,35 +98,4 @@
 
       </filter>
     </item>
-    <item name="com.google.android.googlequicksearchbox/com.google.android.search.core.google.GoogleSearch">
-      <filter>
-            <action name="android.intent.action.WEB_SEARCH" />
-            <cat name="android.intent.category.DEFAULT" />
-      </filter>
-    </item>
-    <item name="com.google.android.googlequicksearchbox/.SearchActivity">
-      <filter>
-            <action name="android.intent.action.ASSIST" />
-            <cat name="android.intent.category.DEFAULT" />
-      </filter>
-    </item>
-
-     <item name="com.google.android.music/com.google.android.music.AudioPreview">
-        <filter>
-            <action name="android.intent.action.VIEW" />
-            <type name="audio/mpeg" />
-            <cat name="android.intent.category.DEFAULT" />
-            <scheme name="file"/>
-        </filter>
-    </item>
-
-    <item name="com.google.android.music/com.google.android.music.ui.playback.AudioPreviewActivity">
-        <filter>
-            <action name="android.intent.action.VIEW" />
-            <type name="audio/mpeg" />
-            <cat name="android.intent.category.DEFAULT" />
-            <scheme name="file"/>
-        </filter>
-    </item>
-
 </preferred-activities>

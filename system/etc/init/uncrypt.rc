@@ -1,8 +1,3 @@
-on post-fs-data
-    # SAMSUNG 
-    # create fota directory
-    mkdir /data/fota 0775 system system
-
 service uncrypt /system/bin/uncrypt
     class main
     socket uncrypt stream 600 system system

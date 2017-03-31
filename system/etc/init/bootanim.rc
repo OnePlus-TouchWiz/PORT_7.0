@@ -1,8 +1,6 @@
-# Don't revise bootanimation service settings. 
-# A side-effect happens if you revise.
 service bootanim /system/bin/bootanimation
     class core
     user graphics
-    group graphics system
+    group graphics audio
     disabled
     oneshot

@@ -96,8 +96,6 @@ key 111   FORWARD_DEL
 key 113   VOLUME_MUTE
 key 114   VOLUME_DOWN
 key 115   VOLUME_UP
-# add LANG by samsung
-key 122   LANG
 key 125   MENU
 key 127   SEARCH
 key 163   MEDIA_NEXT
@@ -105,17 +103,3 @@ key 164   MEDIA_PLAY_PAUSE
 key 165   MEDIA_PREVIOUS
 key 166   MEDIA_STOP
 # key 226  tbd reserved key
-
-
-# LEDs
-led 0x00 NUM_LOCK
-led 0x01 CAPS_LOCK
-led 0x02 SCROLL_LOCK
-led 0x03 COMPOSE
-led 0x04 KANA
-led 0x05 SLEEP
-led 0x06 SUSPEND
-led 0x07 MUTE
-led 0x08 MISC
-led 0x09 MAIL
-led 0x0a CHARGING

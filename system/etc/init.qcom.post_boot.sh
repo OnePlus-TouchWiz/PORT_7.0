@@ -27,6 +27,7 @@
 #
 
 target=`getprop ro.board.platform`
+project=`getprop ro.boot.project_name`
 
 function configure_memory_parameters() {
     # Set Memory paremeters.
@@ -1899,12 +1900,11 @@ case "$target" in
         echo -n enable > /sys/devices/soc/soc:qcom,bcl/mode
 
         # Enable Adaptive LMK
-        #echo 1 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
-        echo 81250 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
+        echo 1 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
+		echo "18432,23040,27648,51256,150296,200640" > /sys/module/lowmemorykiller/parameters/minfree
+        echo 202640 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
         # configure governor settings for little cluster
         echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-        # NORMAL MODE
-        echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/param_index
         echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
         echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
         echo 19000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
@@ -1914,30 +1914,13 @@ case "$target" in
         echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy
         echo 80 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
         echo 19000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
-        echo 19000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
+        echo 79000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
         echo 300000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/fast_ramp_down 
         echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif
-        # SLOW MODE
-        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/param_index
-        echo "19000" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
-        echo 90 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
-        echo 960000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
-        echo "80" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
-        # PERF MODE
-        echo 2 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/param_index
-        echo "19000" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
-        echo 70 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
-        echo 1113600 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
-        echo "50 652800:60 1113600:80" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
-        # SET AS DEFAULT MODE
-        echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/param_index
         # online CPU2
         echo 1 > /sys/devices/system/cpu/cpu2/online
         # configure governor settings for big cluster
         echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-        # NORMAL MODE
-        echo 0 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/param_index
         echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load
         echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif
         echo "19000 1400000:39000 1700000:19000 2100000:79000" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay
@@ -1947,47 +1930,24 @@ case "$target" in
         echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/io_is_busy
         echo "85 1500000:90 1800000:70 2100000:95" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads
         echo 19000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/min_sample_time
-        echo 19000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis
+        echo 79000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis
         echo 300000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
-        echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/fast_ramp_down
         echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/ignore_hispeed_on_notif
-        # SLOW MODE
-        echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/param_index
-        echo "39000 2100000:79000" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay
-        echo 99 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load
-        echo 1248000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq
-        echo "90" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads
-        # PERF MODE
-        echo 2 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/param_index
-        echo "19000" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay
-        echo 70 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load
-        echo 1113600 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq
-        echo "60 940800:75 1401600:80" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads
-        # SET AS DEFAULT MODE
-        echo 0 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/param_index
-
         # re-enable thermal and BCL hotplug
         echo 1 > /sys/module/msm_thermal/core_control/enabled
         echo -n disable > /sys/devices/soc/soc:qcom,bcl/mode
         echo $bcl_hotplug_mask > /sys/devices/soc/soc:qcom,bcl/hotplug_mask
         echo $bcl_soc_hotplug_mask > /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask
         echo -n enable > /sys/devices/soc/soc:qcom,bcl/mode
-        # input boost configuration
-        echo "0:0 2:0" > /sys/module/cpu_boost/parameters/input_boost_freq
-        echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
         # Setting b.L scheduler parameters
         echo 0 > /proc/sys/kernel/sched_boost
         echo 1 > /proc/sys/kernel/sched_migration_fixup
-        echo 70 > /proc/sys/kernel/sched_upmigrate
-        echo 65 > /proc/sys/kernel/sched_downmigrate
+        echo 45 > /proc/sys/kernel/sched_downmigrate
+        echo 45 > /proc/sys/kernel/sched_upmigrate
         echo 400000 > /proc/sys/kernel/sched_freq_inc_notify
-        echo 100000 > /proc/sys/kernel/sched_freq_dec_notify
+        echo 400000 > /proc/sys/kernel/sched_freq_dec_notify
         echo 3 > /proc/sys/kernel/sched_spill_nr_run
         echo 100 > /proc/sys/kernel/sched_init_task_load
-	# disable Low latency binders
-	echo 0 > /proc/sys/kernel/sched_small_wakee_task_load
-	echo 0 > /proc/sys/kernel/sched_big_waker_task_load
-
         # Enable bus-dcvs
         for cpubw in /sys/class/devfreq/*qcom,cpubw*
         do
@@ -2007,202 +1967,12 @@ case "$target" in
             echo 1600 > $cpubw/bw_hwmon/idle_mbps
         done
 
-        for devfreq_gov in /sys/class/devfreq/*qcom,mincpubw*/governor
+        for memlat in /sys/class/devfreq/*qcom,memlat-cpu*
         do
-            echo "cpufreq" > $devfreq_gov
+            echo "mem_latency" > $memlat/governor
+            echo 10 > $memlat/polling_interval
         done
-
-        echo mem_latency > /sys/class/devfreq/soc:qcom,memlat-cpu0/governor
-        echo mem_latency > /sys/class/devfreq/soc:qcom,memlat-cpu2/governor
-
-        # rcu_expedited disable 
-	    echo 0 > /sys/kernel/rcu_expedited
-
-        chown system.system /sys/class/scsi_host/host0/../../../clkscale_enable
-        chmod 660 /sys/class/scsi_host/host0/../../../clkscale_enable        
-
-        # Change Interactive Governor Parameter
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/param_index
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/mode
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/fast_ramp_down 
-	chown -h system.system /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/param_index
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/mode
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_rate
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/io_is_busy
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/min_sample_time
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/fast_ramp_down 
-	chown -h system.system /sys/devices/system/cpu/cpu2/cpufreq/interactive/ignore_hispeed_on_notif
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/param_index
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/mode
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/fast_ramp_down 
-	chmod -h 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/param_index
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/mode
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_rate
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/io_is_busy
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/min_sample_time
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/fast_ramp_down 
-	chmod -h 0664 /sys/devices/system/cpu/cpu2/cpufreq/interactive/ignore_hispeed_on_notif
-
-        # Change cpubw sysfs permission and setting
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/available_frequencies
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/available_governors
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/governor
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/max_freq
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/min_freq
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/bw_step
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/decay_rate
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/down_count
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/down_thres
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/guard_band_mbps
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hist_memory
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hyst_length
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hyst_trigger_count
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/idle_mbps
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/io_percent
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_ceil_mbps
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_delay
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_io_percent
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/mbps_zones
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/sample_ms
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/tolerance_percent
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/up_scale
-        chown -h system.system /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/up_thres
-        chmod -h 0664 /sys/class/devfreq/soc:qcom,cpubw/available_frequencies
-        chmod -h 0664 /sys/class/devfreq/soc:qcom,cpubw/available_governors
-        chmod -h 0664 /sys/class/devfreq/soc:qcom,cpubw/governor
-        chmod -h 0664 /sys/class/devfreq/soc:qcom,cpubw/max_freq
-        chmod -h 0664 /sys/class/devfreq/soc:qcom,cpubw/min_freq
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/bw_step
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/decay_rate
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/down_count
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/down_thres
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/guard_band_mbps
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hist_memory
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hyst_length
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hyst_trigger_count
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/idle_mbps
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/io_percent
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_ceil_mbps
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_delay
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_io_percent
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/mbps_zones
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/sample_ms
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/tolerance_percent
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/up_scale
-        chmod -h 0644 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/up_thres
-
-        chown -h system.system /sys/class/devfreq/soc:qcom,mincpubw/available_frequencies
-        chown -h system.system /sys/class/devfreq/soc:qcom,mincpubw/available_governors
-        chown -h system.system /sys/class/devfreq/soc:qcom,mincpubw/governor
-        chown -h system.system /sys/class/devfreq/soc:qcom,mincpubw/max_freq
-        chown -h system.system /sys/class/devfreq/soc:qcom,mincpubw/min_freq
-        chown -h system.system /sys/class/devfreq/soc:qcom,mincpubw/cpufreq/timeout
-        chmod -h 0664 /sys/class/devfreq/soc:qcom,mincpubw/available_frequencies
-        chmod -h 0664 /sys/class/devfreq/soc:qcom,mincpubw/available_governors
-        chmod -h 0664 /sys/class/devfreq/soc:qcom,mincpubw/governor
-        chmod -h 0664 /sys/class/devfreq/soc:qcom,mincpubw/max_freq
-        chmod -h 0664 /sys/class/devfreq/soc:qcom,mincpubw/min_freq
-        chmod -h 0664 /sys/class/devfreq/soc:qcom,mincpubw/cpufreq/timeout
-
-        # Change power debug parameters permission
-        chown radio.system /sys/module/qpnp_power_on/parameters/reset_enabled
-        chown radio.system /sys/module/qpnp_power_on/parameters/wake_enabled
-        chown radio.system /sys/module/qpnp_int/parameters/debug_mask
-        chown radio.system /sys/module/lpm_levels/parameters/secdebug
-        chmod 664 /sys/module/qpnp_power_on/parameters/reset_enabled
-        chmod 664 /sys/module/qpnp_power_on/parameters/wake_enabled
-        chmod 664 /sys/module/qpnp_int/parameters/debug_mask
-        chmod 664 /sys/module/lpm_levels/parameters/secdebug
-        chown radio.system /sys/power/volkey_wakeup
-        chmod 0660 /sys/power/volkey_wakeup
-
-        # S/W self discharging
-        chown -h system.system /sys/power/selfdischg_usage
-        chown -h system.system /sys/module/lpm_levels/system/pwr/cpu0/wfi/idle_enabled
-        chown -h system.system /sys/module/lpm_levels/system/pwr/cpu0/fpc-def/idle_enabled
-        chown -h system.system /sys/module/lpm_levels/system/pwr/cpu0/fpc/idle_enabled
-        chown -h system.system /sys/module/lpm_levels/system/pwr/cpu1/wfi/idle_enabled
-        chown -h system.system /sys/module/lpm_levels/system/pwr/cpu1/fpc-def/idle_enabled
-        chown -h system.system /sys/module/lpm_levels/system/pwr/cpu1/fpc/idle_enabled
-        chown -h system.system /sys/module/lpm_levels/system/perf/cpu2/wfi/idle_enabled
-        chown -h system.system /sys/module/lpm_levels/system/perf/cpu2/fpc-def/idle_enabled
-        chown -h system.system /sys/module/lpm_levels/system/perf/cpu2/fpc/idle_enabled
-        chown -h system.system /sys/module/lpm_levels/system/perf/cpu3/wfi/idle_enabled
-        chown -h system.system /sys/module/lpm_levels/system/perf/cpu3/fpc-def/idle_enabled
-        chown -h system.system /sys/module/lpm_levels/system/perf/cpu3/fpc/idle_enabled
-        chmod -h 0440 /sys/power/selfdischg_usage
-        chmod -h 0660 /sys/module/lpm_levels/system/pwr/cpu0/wfi/idle_enabled
-        chmod -h 0660 /sys/module/lpm_levels/system/pwr/cpu0/fpc-def/idle_enabled
-        chmod -h 0660 /sys/module/lpm_levels/system/pwr/cpu0/fpc/idle_enabled
-        chmod -h 0660 /sys/module/lpm_levels/system/pwr/cpu1/wfi/idle_enabled
-        chmod -h 0660 /sys/module/lpm_levels/system/pwr/cpu1/fpc-def/idle_enabled
-        chmod -h 0660 /sys/module/lpm_levels/system/pwr/cpu1/fpc/idle_enabled
-        chmod -h 0660 /sys/module/lpm_levels/system/perf/cpu2/wfi/idle_enabled
-        chmod -h 0660 /sys/module/lpm_levels/system/perf/cpu2/fpc-def/idle_enabled
-        chmod -h 0660 /sys/module/lpm_levels/system/perf/cpu2/fpc/idle_enabled
-        chmod -h 0660 /sys/module/lpm_levels/system/perf/cpu3/wfi/idle_enabled
-        chmod -h 0660 /sys/module/lpm_levels/system/perf/cpu3/fpc-def/idle_enabled
-        chmod -h 0660 /sys/module/lpm_levels/system/perf/cpu3/fpc/idle_enabled
-
-        # control daemon for xosd
-        factory_mode=`getprop ro.recovery.assembly`
-        if [ "$factory_mode" != "1" ]; then
-            jig_mode=`cat /sys/class/switch/uart3/state`
-            case "$jig_mode" in
-				1)
-                    echo "PM: JIG UART" > /dev/kmsg
-                    ;;
-                0)
-                    echo "PM: stop at_distributor" > /dev/kmsg
-                    stop at_distributor
-                    stop diag_uart_log
-                    ;;
-            esac
-        fi
+        echo "cpufreq" > /sys/class/devfreq/soc:qcom,mincpubw/governor
 
 	soc_revision=`cat /sys/devices/soc0/revision`
 	if [ "$soc_revision" == "2.0" ]; then
@@ -2225,7 +1995,7 @@ case "$target" in
 	fi
 	echo N > /sys/module/lpm_levels/parameters/sleep_disabled
         # Starting io prefetcher service
-        # start iop
+        start iop
     ;;
 esac
 
@@ -2348,6 +2118,22 @@ case "$target" in
 	    ;;
 	esac
 	echo N > /sys/module/lpm_levels/parameters/sleep_disabled
+    ;;
+esac
+
+case "$project" in
+    "15811")
+        # input boost configuration
+        echo "0:1286400 2:1286400" > /sys/module/cpu_boost/parameters/input_boost_freq
+        echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
+    ;;
+esac
+
+case "$project" in
+    "15801")
+        # input boost configuration
+        echo "0:1324800 2:1324800" > /sys/module/cpu_boost/parameters/input_boost_freq
+        echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
     ;;
 esac
 
@@ -2566,6 +2352,3 @@ case "$console_config" in
         echo "Enable console config to $console_config"
         ;;
 esac
-
-echo 1 > /sys/devices/system/cpu/cpufreq/cpufreq_boot_limit_period
-
